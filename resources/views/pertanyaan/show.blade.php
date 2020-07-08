@@ -12,7 +12,7 @@
       font-size: 20px;
     }
 
-    .vote-up, .vote-down {
+    .upvote, .downvote {
       display: block;
       text-align: center;
       font-size: 30px;
@@ -20,8 +20,8 @@
       color: #ccc!important;
     }
 
-    .vote-up.active svg,
-    .vote-down.active svg{
+    .upvote.active svg,
+    .downvote.active svg{
       color: #3490dc!important;
     }
   </style>
@@ -44,8 +44,8 @@
         }
       @endphp
       @php
-        $voteUpId = 'form-vote-up-' . $question->id;
-        $voteDownId = 'form-vote-down-' . $question->id;
+        $upvoteQuestionId = 'form-upvote-question-' . $question->id;
+        $downvoteQuestionId = 'form-downvote-question-' . $question->id;
       @endphp
 
       <div class="card mb-4">
@@ -53,47 +53,45 @@
           <div class="media mb-2">
             <div class="mr-3 vote-container">
               @if (auth()->check())
-                <a class="vote-up {{ $question->user_vote == 'VOTE UP' ? 'active' : '' }}"
-                  onclick="event.preventDefault();document.getElementById('{{ $voteUpId }}').submit();">
+                <a class="upvote {{ $question->user_vote == 'UPVOTE' ? 'active' : '' }}"
+                  onclick="event.preventDefault();document.getElementById('{{ $upvoteQuestionId }}').submit();">
                   <i class="fa fa-caret-up"></i>
                 </a>
                 <span class="vote-count">
                   {{ $question->vote }}
                 </span>
-                <a class="vote-down {{ $question->user_vote == 'VOTE DOWN' ? 'active' : '' }}"
-                  onclick="event.preventDefault();document.getElementById('{{ $voteDownId }}').submit();">
+                <a class="downvote {{ $question->user_vote == 'DOWNVOTE' ? 'active' : '' }}"
+                  onclick="event.preventDefault();document.getElementById('{{ $downvoteQuestionId }}').submit();">
                   <i class="fa fa-caret-down"></i>
                 </a>
               @else
-                <a class="vote-up"
+                <a class="upvote"
                   data-toggle="modal" data-target="#modal-please-login">
                   <i class="fa fa-caret-up"></i>
                 </a>
                 <span class="vote-count">
                   {{ $question->vote }}
                 </span>
-                <a class="vote-down"
+                <a class="downvote"
                   data-toggle="modal" data-target="#modal-please-login">
                   <i class="fa fa-caret-down"></i>
                 </a>
               @endif
 
-              {{--
               <form
                 style="display: none;"
-                id="{{ $voteUpId }}"
-                action="{{ route('pertanyaan.vote-up', $question->id) }}"
+                id="{{ $upvoteQuestionId }}"
+                action="{{ route('pertanyaan.upvote', $question->id) }}"
                 method="POST">
                 @csrf
               </form>
               <form
                 style="display: none;"
-                id="{{ $voteDownId }}"
-                action="{{ route('pertanyaan.vote-down', $question->id) }}"
+                id="{{ $downvoteQuestionId }}"
+                action="{{ route('pertanyaan.downvote', $question->id) }}"
                 method="POST">
                 @csrf
               </form>
-              --}}
             </div>
 
             <div class="media-body">
@@ -172,34 +170,34 @@
       @if (count($question->answers))
         @foreach ($question->answers as $answer)
           @php
-            $voteUpReplyId = 'form-reply-vote-up-' . $answer->id;
-            $voteDownReplyId = 'form-reply-vote-down-' . $answer->id;
+            $voteUpReplyId = 'form-reply-upvote-' . $answer->id;
+            $voteDownReplyId = 'form-reply-downvote-' . $answer->id;
           @endphp
           <div class="card mb-4">
             <div class="card-body">
               <div class="media mb-2">
                 <div class="mr-3 vote-container">
                   @if (auth()->check())
-                    <a class="vote-up {{ $answer->user_vote == 'VOTE UP' ? 'active' : '' }}"
+                    <a class="upvote {{ $answer->user_vote == 'VOTE UP' ? 'active' : '' }}"
                       onclick="event.preventDefault();document.getElementById('{{ $voteUpReplyId }}').submit();">
                       <i class="fa fa-caret-up"></i>
                     </a>
                     <span class="vote-count">
                       {{ $answer->vote }}
                     </span>
-                    <a class="vote-down {{ $answer->user_vote == 'VOTE DOWN' ? 'active' : '' }}"
+                    <a class="downvote {{ $answer->user_vote == 'VOTE DOWN' ? 'active' : '' }}"
                       onclick="event.preventDefault();document.getElementById('{{ $voteDownReplyId }}').submit();">
                       <i class="fa fa-caret-down"></i>
                     </a>
                   @else
-                    <a class="vote-up"
+                    <a class="upvote"
                       data-toggle="modal" data-target="#modal-please-login">
                       <i class="fa fa-caret-up"></i>
                     </a>
                     <span class="vote-count">
                       {{ $answer->vote }}
                     </span>
-                    <a class="vote-down"
+                    <a class="downvote"
                       data-toggle="modal" data-target="#modal-please-login">
                       <i class="fa fa-caret-down"></i>
                     </a>
@@ -209,14 +207,14 @@
                   <form
                     style="display: none;"
                     id="{{ $voteUpReplyId }}"
-                    action="{{ route('jawaban.vote-up', $answer->id) }}"
+                    action="{{ route('jawaban.upvote', $answer->id) }}"
                     method="POST">
                     @csrf
                   </form>
                   <form
                     style="display: none;"
                     id="{{ $voteDownReplyId }}"
-                    action="{{ route('jawaban.vote-down', $answer->id) }}"
+                    action="{{ route('jawaban.downvote', $answer->id) }}"
                     method="POST">
                     @csrf
                   </form>

@@ -56,7 +56,7 @@
                 <div class="mr-3 vote-container">
                   @if (auth()->check())
                     <a class="upvote {{ $question->user_vote == 'UPVOTE' ? 'active' : '' }}"
-                      {{-- onclick="event.preventDefault();document.getElementById('{{ $upvoteQuestionId }}').submit();" --}}
+                      onclick="event.preventDefault();document.getElementById('{{ $upvoteQuestionId }}').submit();"
                     >
                       <i class="fa fa-caret-up"></i>
                     </a>
@@ -64,7 +64,7 @@
                       {{ $question->vote }}
                     </span>
                     <a class="downvote {{ $question->user_vote == 'DOWNVOTE' ? 'active' : '' }}"
-                      {{-- onclick="event.preventDefault();document.getElementById('{{ $downvoteQuestionId }}').submit();" --}}
+                      onclick="event.preventDefault();document.getElementById('{{ $downvoteQuestionId }}').submit();"
                     >
                       <i class="fa fa-caret-down"></i>
                     </a>
@@ -82,7 +82,6 @@
                     </a>
                   @endif
 
-                  {{--
                   <form
                     style="display: none;"
                     id="{{ $upvoteQuestionId }}"
@@ -97,7 +96,6 @@
                     method="POST">
                     @csrf
                   </form>
-                  --}}
                 </div>
 
                 <div class="media-body">

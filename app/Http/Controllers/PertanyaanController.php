@@ -14,7 +14,7 @@ class PertanyaanController extends Controller
      */
     public function index()
     {
-        $questions = Question::with('user')->withCount('answers')->latest()->paginate(10);
+        $questions = Question::with('user', 'votes')->withCount('answers')->latest()->paginate(10);
         return view('pertanyaan.index', compact('questions'));
     }
 
@@ -59,7 +59,7 @@ class PertanyaanController extends Controller
      */
     public function show($questionId)
     {
-        $question = Question::with('user')->withCount('answers')->findOrFail($questionId);
+        $question = Question::with('user', 'votes')->withCount('answers')->findOrFail($questionId);
         return view('pertanyaan.show', compact('question'));
     }
 
@@ -123,5 +123,21 @@ class PertanyaanController extends Controller
 
         session()->flash('successMessage', 'Pertanyaan telah dihapus');
         return redirect()->route('pertanyaan.index');
+    }
+
+    public function upvote($questionId)
+    {
+        $question = Question::findOrFail($questionId);
+        $question->upvote();
+
+        return redirect()->back();
+    }
+
+    public function downvote($questionId)
+    {
+        $question = Question::findOrFail($questionId);
+        $question->downvote();
+
+        return redirect()->back();
     }
 }
