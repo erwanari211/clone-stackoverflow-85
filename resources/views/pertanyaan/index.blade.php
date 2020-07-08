@@ -125,7 +125,7 @@
                     </a>
                   </h3>
                   <p>
-                    {{ $question->content }}
+                    {!! $question->content !!}
                   </p>
 
                   <div class="row">
