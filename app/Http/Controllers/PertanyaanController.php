@@ -118,7 +118,7 @@ class PertanyaanController extends Controller
             return abort(403);
         }
 
-        // $question->answers()->delete();
+        $question->answers()->delete();
         $question->delete();
 
         session()->flash('successMessage', 'Pertanyaan telah dihapus');

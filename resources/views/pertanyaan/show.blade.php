@@ -24,6 +24,18 @@
     .downvote.active svg{
       color: #3490dc!important;
     }
+
+    @media only screen and (max-width: 575px) {
+      .vote-container {
+        width: 60px;
+      }
+
+      .vote-count {
+        display: block;
+        text-align: center;
+        font-size: 16px;
+      }
+    }
   </style>
 @endpush
 
