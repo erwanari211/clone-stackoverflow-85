@@ -34,3 +34,9 @@ Route::post('pertanyaan/{pertanyaan_id}/downvote', 'PertanyaanController@downvot
     ->name('pertanyaan.downvote')->middleware('auth');
 
 Route::post('pertanyaan/{pertanyaan_id}/jawaban', 'JawabanController@store')->name('jawaban.store')->middleware('auth');
+
+Route::post('jawaban/{jawaban_id}/upvote', 'JawabanController@upvote')
+    ->name('jawaban.upvote')->middleware('auth');
+Route::post('jawaban/{jawaban_id}/downvote', 'JawabanController@downvote')
+    ->name('jawaban.downvote')->middleware('auth');
+

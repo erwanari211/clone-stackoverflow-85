@@ -96,4 +96,20 @@ class JawabanController extends Controller
     {
         //
     }
+
+    public function upvote($answerId)
+    {
+        $answer = Answer::findOrFail($answerId);
+        $answer->upvote();
+
+        return redirect()->back();
+    }
+
+    public function downvote($answerId)
+    {
+        $answer = Answer::findOrFail($answerId);
+        $answer->downvote();
+
+        return redirect()->back();
+    }
 }
