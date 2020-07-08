@@ -121,7 +121,7 @@
                   <div class="row">
                     <div class="col-sm-4">
                       <span class="text-muted">
-                        {{ $question->replies_count }}
+                        {{ $question->answers_count ?? 0 }}
                         Jawaban
                       </span>
                     </div>

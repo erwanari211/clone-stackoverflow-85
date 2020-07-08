@@ -27,3 +27,5 @@ Route::get('pertanyaan/{pertanyaan_id}', 'PertanyaanController@show')->name('per
 Route::get('pertanyaan/{pertanyaan_id}/edit', 'PertanyaanController@edit')->name('pertanyaan.edit')->middleware('auth');
 Route::put('pertanyaan/{pertanyaan_id}', 'PertanyaanController@update')->name('pertanyaan.update')->middleware('auth');
 Route::delete('pertanyaan/{pertanyaan_id}', 'PertanyaanController@destroy')->name('pertanyaan.destroy')->middleware('auth');
+
+Route::post('pertanyaan/{pertanyaan_id}/jawaban', 'JawabanController@store')->name('jawaban.store')->middleware('auth');

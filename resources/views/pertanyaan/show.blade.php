@@ -117,7 +117,7 @@
               <div class="row">
                 <div class="col-sm-4">
                   <span class="text-muted">
-                    {{ $question->replies_count }}
+                    {{ $question->answers_count ?? 0 }}
                     Jawaban
                   </span>
                 </div>
@@ -148,7 +148,6 @@
 
       <div class="card mb-4">
         <div class="card-body">
-          {{--
           @if (auth()->check())
             <form action="{{ route('jawaban.store', $question->id) }}" method="POST">
               @csrf
@@ -165,31 +164,30 @@
               Silahkan <a href="{{ route('login') }}">login</a> untuk menjawab pertanyaan
             </div>
           @endif
-          --}}
         </div>
       </div>
 
       <h3 class="mb-4">Jawaban</h3>
-      {{--
-      @if (count($question->replies))
-        @foreach ($question->replies as $reply)
+
+      @if (count($question->answers))
+        @foreach ($question->answers as $answer)
           @php
-            $voteUpReplyId = 'form-reply-vote-up-' . $reply->id;
-            $voteDownReplyId = 'form-reply-vote-down-' . $reply->id;
+            $voteUpReplyId = 'form-reply-vote-up-' . $answer->id;
+            $voteDownReplyId = 'form-reply-vote-down-' . $answer->id;
           @endphp
           <div class="card mb-4">
             <div class="card-body">
               <div class="media mb-2">
                 <div class="mr-3 vote-container">
                   @if (auth()->check())
-                    <a class="vote-up {{ $reply->user_vote == 'VOTE UP' ? 'active' : '' }}"
+                    <a class="vote-up {{ $answer->user_vote == 'VOTE UP' ? 'active' : '' }}"
                       onclick="event.preventDefault();document.getElementById('{{ $voteUpReplyId }}').submit();">
                       <i class="fa fa-caret-up"></i>
                     </a>
                     <span class="vote-count">
-                      {{ $reply->vote }}
+                      {{ $answer->vote }}
                     </span>
-                    <a class="vote-down {{ $reply->user_vote == 'VOTE DOWN' ? 'active' : '' }}"
+                    <a class="vote-down {{ $answer->user_vote == 'VOTE DOWN' ? 'active' : '' }}"
                       onclick="event.preventDefault();document.getElementById('{{ $voteDownReplyId }}').submit();">
                       <i class="fa fa-caret-down"></i>
                     </a>
@@ -199,7 +197,7 @@
                       <i class="fa fa-caret-up"></i>
                     </a>
                     <span class="vote-count">
-                      {{ $reply->vote }}
+                      {{ $answer->vote }}
                     </span>
                     <a class="vote-down"
                       data-toggle="modal" data-target="#modal-please-login">
@@ -207,33 +205,35 @@
                     </a>
                   @endif
 
+                  {{--
                   <form
                     style="display: none;"
                     id="{{ $voteUpReplyId }}"
-                    action="{{ route('jawaban.vote-up', $reply->id) }}"
+                    action="{{ route('jawaban.vote-up', $answer->id) }}"
                     method="POST">
                     @csrf
                   </form>
                   <form
                     style="display: none;"
                     id="{{ $voteDownReplyId }}"
-                    action="{{ route('jawaban.vote-down', $reply->id) }}"
+                    action="{{ route('jawaban.vote-down', $answer->id) }}"
                     method="POST">
                     @csrf
                   </form>
+                  --}}
                 </div>
 
                 <div class="media-body">
                   <div class="media mb-2">
-                    <img class="d-flex mr-3 img-thumbnail rounded-circle" src="https://api.adorable.io/avatars/50/{{ $reply->user->email }}.png" alt="Generic placeholder image">
+                    <img class="d-flex mr-3 img-thumbnail rounded-circle" src="https://api.adorable.io/avatars/50/{{ $answer->user->email }}.png" alt="Generic placeholder image">
                     <div class="media-body">
-                      <h5 class="mt-0">{{ $reply->user->name }}</h5>
-                      <span class="text-muted">{{ $reply->created_at->diffForHumans() }}</span>
+                      <h5 class="mt-0">{{ $answer->user->name }}</h5>
+                      <span class="text-muted">{{ $answer->created_at->diffForHumans() }}</span>
                     </div>
                   </div>
 
                   <p>
-                    {{ $reply->content }}
+                    {{ $answer->content }}
                   </p>
                 </div>
               </div>
@@ -246,7 +246,7 @@
           Pertanyaan ini belum memiliki jawaban.
         </div>
       @endif
-      --}}
+
     </div>
   </div>
 </div>

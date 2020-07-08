@@ -14,7 +14,7 @@ class PertanyaanController extends Controller
      */
     public function index()
     {
-        $questions = Question::with('user')->latest()->paginate(10);
+        $questions = Question::with('user')->withCount('answers')->latest()->paginate(10);
         return view('pertanyaan.index', compact('questions'));
     }
 
@@ -59,7 +59,7 @@ class PertanyaanController extends Controller
      */
     public function show($questionId)
     {
-        $question = Question::with('user')->findOrFail($questionId);
+        $question = Question::with('user')->withCount('answers')->findOrFail($questionId);
         return view('pertanyaan.show', compact('question'));
     }
 
