@@ -18,3 +18,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('pertanyaan', 'PertanyaanController@index')->name('pertanyaan.index');
+Route::get('pertanyaan/create', 'PertanyaanController@create')->name('pertanyaan.create')->middleware('auth');
+Route::post('pertanyaan', 'PertanyaanController@store')->name('pertanyaan.store')->middleware('auth');
+
+Route::get('pertanyaan/{pertanyaan_id}', 'PertanyaanController@show')->name('pertanyaan.show');
+Route::get('pertanyaan/{pertanyaan_id}/edit', 'PertanyaanController@edit')->name('pertanyaan.edit')->middleware('auth');
+Route::put('pertanyaan/{pertanyaan_id}', 'PertanyaanController@update')->name('pertanyaan.update')->middleware('auth');
+Route::delete('pertanyaan/{pertanyaan_id}', 'PertanyaanController@destroy')->name('pertanyaan.destroy')->middleware('auth');
