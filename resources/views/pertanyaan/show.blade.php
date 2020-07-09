@@ -241,7 +241,7 @@
                   </div>
 
                   <p>
-                    {{ $answer->content }}
+                    {!! $answer->content !!}
                   </p>
                 </div>
               </div>

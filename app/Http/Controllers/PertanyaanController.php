@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Question;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class PertanyaanController extends Controller
 {
@@ -47,8 +49,8 @@ class PertanyaanController extends Controller
         $thread->content = request('content');
         $thread->save();
 
-        session()->flash('successMessage', 'Pertanyaan telah tersimpan');
-        return redirect()->back();
+        session()->flash('success', 'Pertanyaan telah tersimpan');
+        return redirect('/pertanyaan');
     }
 
     /**
@@ -101,8 +103,8 @@ class PertanyaanController extends Controller
         $question->content = request('content');
         $question->save();
 
-        session()->flash('successMessage', 'Pertanyaan telah diperbarui');
-        return redirect()->back();
+        session()->flash('success', 'Pertanyaan telah diperbarui');
+        return redirect('/pertanyaan');
     }
 
     /**
@@ -121,8 +123,8 @@ class PertanyaanController extends Controller
         $question->answers()->delete();
         $question->delete();
 
-        session()->flash('successMessage', 'Pertanyaan telah dihapus');
-        return redirect()->route('pertanyaan.index');
+        session()->flash('success', 'Pertanyaan telah dihapus');
+        return redirect('/pertanyaan');
     }
 
     public function upvote($questionId)

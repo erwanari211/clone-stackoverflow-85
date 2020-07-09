@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Answer;
 use Illuminate\Http\Request;
 use App\Models\Question;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class JawabanController extends Controller
 {
@@ -48,8 +50,8 @@ class JawabanController extends Controller
         $answer->content = request('content');
         $answer->save();
 
-        session()->flash('successMessage', 'Jawaban telah tersimpan');
-        return redirect()->back();
+        session()->flash('success', 'Jawaban telah tersimpan');
+        return redirect('/pertanyaan');
     }
 
     /**

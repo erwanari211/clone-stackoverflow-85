@@ -81,4 +81,5 @@ $(function() {
     });
 
 </script>
+@include('sweetalert::alert')
 @endsection

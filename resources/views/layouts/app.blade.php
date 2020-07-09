@@ -89,5 +89,6 @@
     </div>
 
     @stack('js')
+    @include('sweetalert::alert')
 </body>
 </html>
