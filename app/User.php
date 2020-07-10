@@ -36,4 +36,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getReputationLabelAttribute()
+    {
+        $reputation = $this->reputation_point;
+        $class = $reputation >= 0 ? 'badge badge-success' : 'badge badge-danger';
+        return '<span title="Reputation Score" class="reputation ' . $class . '">' . $reputation . '</span>';
+    }
 }

@@ -115,8 +115,11 @@
               <div class="media mb-2">
                 <img class="d-flex mr-3 img-thumbnail rounded-circle" src="https://api.adorable.io/avatars/50/{{ $question->user->email }}.png" alt="Generic placeholder image">
                 <div class="media-body">
-                  <h5 class="mt-0">{{ $question->user->name }}</h5>
-                  <span class="text-muted">{{ $question->created_at->diffForHumans() }}</span>
+                  <h5 class="my-0">
+                    {{ $question->user->name }}
+                    {!! $question->user->reputation_label !!}
+                  </h5>
+                  <small class="text-muted">{{ $question->created_at->diffForHumans() }}</small>
                 </div>
               </div>
 
@@ -240,8 +243,11 @@
                   <div class="media mb-2">
                     <img class="d-flex mr-3 img-thumbnail rounded-circle" src="https://api.adorable.io/avatars/50/{{ $answer->user->email }}.png" alt="Generic placeholder image">
                     <div class="media-body">
-                      <h5 class="mt-0">{{ $answer->user->name }}</h5>
-                      <span class="text-muted">{{ $answer->created_at->diffForHumans() }}</span>
+                      <h5 class="my-0">
+                        {{ $answer->user->name }}
+                        {!! $question->user->reputation_label !!}
+                      </h5>
+                      <small class="text-muted">{{ $answer->created_at->diffForHumans() }}</small>
                     </div>
                   </div>
 
