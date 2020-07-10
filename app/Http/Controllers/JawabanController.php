@@ -15,9 +15,10 @@ class JawabanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($threadId)
     {
-        //
+        $thread = Thread::with('user', 'replies')->findOrFail($threadId);
+        return view('jawaban.index', compact('thread'));
     }
 
     /**
