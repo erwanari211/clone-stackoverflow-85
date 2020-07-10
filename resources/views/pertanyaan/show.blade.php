@@ -131,6 +131,9 @@
               <div class="question-content">
                 {!! $question->content !!}
               </div>
+              <div class="question-tag mb-3">
+                {!! $question->tag_button !!}
+              </div>
 
               <div class="row">
                 <div class="col-sm-4">
