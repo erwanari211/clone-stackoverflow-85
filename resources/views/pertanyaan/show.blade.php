@@ -146,13 +146,14 @@
               </div>
 
               <div class="row">
-                <div class="col-sm-4">
-                  <span class="text-muted">
+                <div class="col-md-8">
+                  <span class="text-muted mr-3">
                     {{ $question->answers_count ?? 0 }}
                     Jawaban
                   </span>
+                  {!! $question->is_answered_label !!}
                 </div>
-                <div class="col-sm-8">
+                <div class="col-md-4">
                 </div>
                 <div class="col-sm-12">
                   <span class="text-muted">Dibuat {{ $question->created_at->diffForHumans() }} </span> ·
