@@ -30,3 +30,4 @@ class AnswerVote extends Model
         $this->save();
     }
 }
+?>
