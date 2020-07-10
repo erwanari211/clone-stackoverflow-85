@@ -122,4 +122,20 @@ class JawabanController extends Controller
         $answer->downvote();
         return redirect()->back();
     }
+
+    public function setAsBestAnswer($answerId)
+    {
+        $answer = Answer::findOrFail($answerId);
+        $user = auth()->user();
+
+        $question = $answer->question;
+        if (!$question->isOwnedByUser($user->id)) {
+            Alert::toast('Maaf anda tidak bisa memilih sebagai jawaban terbaik', 'error');
+            return redirect()->back();
+        }
+
+        $answer->setAsBestAnswer();
+        session()->flash('success', 'Jawaban telah dipilih sebagai jawaban terbaik');
+        return redirect()->back();
+    }
 }

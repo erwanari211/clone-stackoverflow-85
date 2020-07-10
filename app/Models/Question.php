@@ -27,6 +27,16 @@ class Question extends Model
         return $this->hasMany('App\Models\QuestionVote');
     }
 
+    public function bestAnswer()
+    {
+        return $this->belongsTo('App\Models\Answer');
+    }
+
+    public function isOwnedByUser($userId)
+    {
+        return $this->user_id == $userId;
+    }
+
     public function upvote()
     {
         $user = auth()->user();

@@ -41,6 +41,10 @@
     .answer-content img {
       width: 100%!important;
     }
+
+    .is-best-answer {
+      background-color: rgb(243,249,233);
+    }
   </style>
 @endpush
 
@@ -195,9 +199,10 @@
           @php
             $upvoteAnswerId = 'form-upvote-answer-' . $answer->id;
             $downvoteAnswerId = 'form-downvote-answer-' . $answer->id;
+            $bestAnswerId = 'form-best-answer-answer-' . $answer->id;
           @endphp
           <div class="card mb-4">
-            <div class="card-body">
+            <div class="card-body {{ $answer->id == $question->best_answer_id ? 'is-best-answer' : '' }}">
               <div class="media mb-2 answer">
                 <div class="mr-3 vote-container">
                   @if (auth()->check())
@@ -212,6 +217,12 @@
                       onclick="event.preventDefault();document.getElementById('{{ $downvoteAnswerId }}').submit();">
                       <i class="fa fa-caret-down"></i>
                     </a>
+                    @if ($question->isOwnedByUser(auth()->user()->id))
+                      <a class="downvote {{ $answer->id == $question->best_answer_id ? 'text-success' : '' }}"
+                        onclick="event.preventDefault();document.getElementById('{{ $bestAnswerId }}').submit();">
+                        <i class="fa fa-check"></i>
+                      </a>
+                    @endif
                   @else
                     <a class="upvote"
                       data-toggle="modal" data-target="#modal-please-login">
@@ -224,6 +235,11 @@
                       data-toggle="modal" data-target="#modal-please-login">
                       <i class="fa fa-caret-down"></i>
                     </a>
+                    @if ($answer->id == $question->best_answer_id)
+                      <a class="downvote text-success">
+                        <i class="fa fa-check"></i>
+                      </a>
+                    @endif
                   @endif
 
                   <form
@@ -240,6 +256,13 @@
                     method="POST">
                     @csrf
                   </form>
+                  <form
+                    style="display: none;"
+                    id="{{ $bestAnswerId }}"
+                    action="{{ route('jawaban.set-as-best-answer', $answer->id) }}"
+                    method="POST">
+                    @csrf
+                  </form>
                 </div>
 
                 <div class="media-body">
@@ -248,7 +271,7 @@
                     <div class="media-body">
                       <h5 class="my-0">
                         {{ $answer->user->name }}
-                        {!! $question->user->reputation_label !!}
+                        {!! $answer->user->reputation_label !!}
                       </h5>
                       <small class="text-muted">{{ $answer->created_at->diffForHumans() }}</small>
                     </div>

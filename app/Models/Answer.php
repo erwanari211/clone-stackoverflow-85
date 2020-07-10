@@ -19,12 +19,32 @@ class Answer extends Model
 
     public function question()
     {
-        return $this->hasMany('App\Models\Question');
+        return $this->belongsTo('App\Models\Question');
     }
 
     public function votes()
     {
         return $this->hasMany('App\Models\AnswerVote');
+    }
+
+    public function setAsBestAnswer()
+    {
+        $question = $this->question;
+
+        if ($question->bestAnswer) {
+            $question->bestAnswer->user->updateUserReputation('cancel best answer');
+        }
+
+        $question->answers()->update(['is_best_answer' => 0]);
+        $question->best_answer_id = $this->id;
+        $question->save();
+
+        $this->is_best_answer = true;
+        $this->save();
+
+        $this->user->updateUserReputation('best answer');
+
+        return $this;
     }
 
     public function upvote()

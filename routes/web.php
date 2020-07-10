@@ -39,4 +39,6 @@ Route::post('jawaban/{jawaban_id}/upvote', 'JawabanController@upvote')
     ->name('jawaban.upvote')->middleware('auth');
 Route::post('jawaban/{jawaban_id}/downvote', 'JawabanController@downvote')
     ->name('jawaban.downvote')->middleware('auth');
+Route::post('jawaban/{jawaban_id}/best-answer', 'JawabanController@setAsBestAnswer')
+    ->name('jawaban.set-as-best-answer')->middleware('auth');
 

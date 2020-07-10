@@ -58,6 +58,16 @@ class User extends Authenticatable
             $point = 1;
             $this->increment('reputation_point', $point);
         }
+
+        if (strtolower($type) == 'best answer') {
+            $point = 15;
+            $this->increment('reputation_point', $point);
+        }
+
+        if (strtolower($type) == 'cancel best answer') {
+            $point = -15;
+            $this->increment('reputation_point', $point);
+        }
     }
 
     public function isAllowedToDownvote()
