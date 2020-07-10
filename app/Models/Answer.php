@@ -27,6 +27,16 @@ class Answer extends Model
         return $this->hasMany('App\Models\AnswerVote');
     }
 
+    public function comments()
+    {
+        return $this->hasMany('App\Models\AnswerComment');
+    }
+
+    public function addComment($data)
+    {
+        $this->comments()->create($data);
+    }
+
     public function setAsBestAnswer()
     {
         $question = $this->question;

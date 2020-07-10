@@ -138,4 +138,22 @@ class JawabanController extends Controller
         session()->flash('success', 'Jawaban telah dipilih sebagai jawaban terbaik');
         return redirect()->back();
     }
+
+    public function storeComment($answerId)
+    {
+        $answer = Answer::findOrFail($answerId);
+
+        request()->validate([
+            'content' => 'required',
+        ]);
+
+        $user = auth()->user();
+        $answer->addComment([
+            'user_id' => $user->id,
+            'content' => request('content'),
+        ]);
+
+        session()->flash('success', 'Komentar telah tersimpan');
+        return redirect()->back();
+    }
 }

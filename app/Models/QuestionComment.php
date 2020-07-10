@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class QustionComment extends Model
+class QuestionComment extends Model
 {
     protected $fillable = ['question_id', 'user_id', 'content'];
 

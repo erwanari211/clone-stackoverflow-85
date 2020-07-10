@@ -13,7 +13,7 @@ class CreateCommentQuestionTable extends Migration
      */
     public function up()
     {
-        Schema::create('comment_question', function (Blueprint $table) {
+        Schema::create('question_comments', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('question_id');
             $table->unsignedBigInteger('user_id');
@@ -29,6 +29,6 @@ class CreateCommentQuestionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comment_question');
+        Schema::dropIfExists('question_comments');
     }
 }

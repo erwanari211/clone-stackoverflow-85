@@ -32,9 +32,19 @@ class Question extends Model
         return $this->belongsTo('App\Models\Answer');
     }
 
+    public function comments()
+    {
+        return $this->hasMany('App\Models\QuestionComment');
+    }
+
     public function isOwnedByUser($userId)
     {
         return $this->user_id == $userId;
+    }
+
+    public function addComment($data)
+    {
+        $this->comments()->create($data);
     }
 
     public function upvote()

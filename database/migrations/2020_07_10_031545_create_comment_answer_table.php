@@ -13,7 +13,7 @@ class CreateCommentAnswerTable extends Migration
      */
     public function up()
     {
-        Schema::create('comment_answer', function (Blueprint $table) {
+        Schema::create('answer_comments', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('answer_id');
             $table->unsignedBigInteger('user_id');
@@ -29,6 +29,6 @@ class CreateCommentAnswerTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comment_answer');
+        Schema::dropIfExists('answer_comments');
     }
 }

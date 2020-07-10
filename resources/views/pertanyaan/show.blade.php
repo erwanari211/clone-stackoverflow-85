@@ -45,6 +45,10 @@
     .is-best-answer {
       background-color: rgb(243,249,233);
     }
+
+    .question-comment {
+      border-bottom: 1px solid #ccc;
+    }
   </style>
 @endpush
 
@@ -165,6 +169,41 @@
                   </form>
                 </div>
               @endif
+
+              @if ($isLoggedIn)
+                <div class="mt-4">
+                  <hr>
+                  <form action="{{ route('pertanyaan.komentar.store', $question->id) }}" method="POST">
+                    @csrf
+                    <div class="form-group">
+                      <textarea class="form-control" name="content" placeholder="Tambahkan komentar"></textarea>
+                    </div>
+                    <button class="btn btn-primary btn-sm">Submit</button>
+                  </form>
+                </div>
+              @endif
+
+              <div class="mt-4 question-comments">
+                @if (count($question->comments))
+                  <hr>
+                  @foreach ($question->comments as $questionComment)
+                    <div class="mb-2 question-comment">
+                      <div class="comment-content">
+                        {{ $questionComment->content }}
+                      </div>
+                      <div class="comment-info">
+                        <span class="text-muted">
+                          {{ $questionComment->user->name }}
+                        </span>
+                        ·
+                        <small class="text-muted">
+                          {{ $questionComment->created_at->diffForHumans() }}
+                        </small>
+                      </div>
+                    </div>
+                  @endforeach
+                @endif
+              </div>
             </div>
           </div>
 
@@ -222,6 +261,12 @@
                         onclick="event.preventDefault();document.getElementById('{{ $bestAnswerId }}').submit();">
                         <i class="fa fa-check"></i>
                       </a>
+                    @else
+                      @if ($answer->id == $question->best_answer_id)
+                        <a class="downvote text-success">
+                          <i class="fa fa-check"></i>
+                        </a>
+                      @endif
                     @endif
                   @else
                     <a class="upvote"
@@ -279,6 +324,41 @@
 
                   <div class="answer-content">
                     {!! $answer->content !!}
+                  </div>
+
+                  @if ($isLoggedIn)
+                    <div class="mt-4">
+                      <hr>
+                      <form action="{{ route('jawaban.komentar.store', $answer->id) }}" method="POST">
+                        @csrf
+                        <div class="form-group">
+                          <textarea class="form-control" name="content" placeholder="Tambahkan komentar"></textarea>
+                        </div>
+                        <button class="btn btn-primary btn-sm">Submit</button>
+                      </form>
+                    </div>
+                  @endif
+
+                  <div class="mt-4 question-comments">
+                    @if (count($answer->comments))
+                      <hr>
+                      @foreach ($answer->comments as $answerComment)
+                        <div class="mb-2 question-comment">
+                          <div class="comment-content">
+                            {{ $answerComment->content }}
+                          </div>
+                          <div class="comment-info">
+                            <span class="text-muted">
+                              {{ $answerComment->user->name }}
+                            </span>
+                            ·
+                            <small class="text-muted">
+                              {{ $answerComment->created_at->diffForHumans() }}
+                            </small>
+                          </div>
+                        </div>
+                      @endforeach
+                    @endif
                   </div>
                 </div>
               </div>

@@ -63,7 +63,10 @@ class PertanyaanController extends Controller
      */
     public function show($questionId)
     {
-        $question = Question::with('user', 'votes')->withCount('answers')->findOrFail($questionId);
+        $question = Question::with('user', 'votes',
+            'comments', 'comments.user',
+            'answers', 'answers.comments', 'answers.comments.user')
+            ->withCount('answers')->findOrFail($questionId);
         return view('pertanyaan.show', compact('question'));
     }
 
@@ -151,6 +154,24 @@ class PertanyaanController extends Controller
         }
 
         $question->downvote();
+        return redirect()->back();
+    }
+
+    public function storeComment($questionId)
+    {
+        $question = Question::findOrFail($questionId);
+
+        request()->validate([
+            'content' => 'required',
+        ]);
+
+        $user = auth()->user();
+        $question->addComment([
+            'user_id' => $user->id,
+            'content' => request('content'),
+        ]);
+
+        session()->flash('success', 'Komentar telah tersimpan');
         return redirect()->back();
     }
 }
