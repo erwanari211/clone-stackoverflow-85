@@ -26,6 +26,12 @@
               <textarea class="ckeditor" id="content" name="content" rows="5">{{ old('content', $question->content) }}</textarea>
             </div>
 
+            <div class="form-group">
+              <label>Tag</label>
+              <input type="text" class="form-control" name="tag" value="{{ old('tag', $question->tag) }}">
+              <small class="form-text text-muted">Pisahkan tag dengan koma</small>
+            </div>
+
             <button type="submit" class="btn btn-primary">Submit</button>
             <a class="btn btn-outline-primary" href="{{ route('pertanyaan.show', $question->id) }}">Kembali</a>
           </form>
@@ -45,38 +51,38 @@ $(function() {
         shiftEnterMode: CKEDITOR.ENTER_P
     });
 });
-<script>
-    $("#inputFile").change(function(event) {  
+
+    $("#inputFile").change(function(event) {
       fadeInAdd();
-      getURL(this);    
+      getURL(this);
     });
 
     $("#inputFile").on('click',function(event){
       fadeInAdd();
     });
 
-    function getURL(input) {    
-      if (input.files && input.files[0]) {   
+    function getURL(input) {
+      if (input.files && input.files[0]) {
         var reader = new FileReader();
         var filename = $("#inputFile").val();
         filename = filename.substring(filename.lastIndexOf('\\')+1);
         reader.onload = function(e) {
-          debugger;      
+          debugger;
           $('#imgView').attr('src', e.target.result);
           $('#imgView').hide();
-          $('#imgView').fadeIn(500);      
-          $('.custom-file-label').text(filename);             
+          $('#imgView').fadeIn(500);
+          $('.custom-file-label').text(filename);
         }
-        reader.readAsDataURL(input.files[0]);    
+        reader.readAsDataURL(input.files[0]);
       }
       $(".alert").removeClass("loadAnimate").hide();
     }
 
     function fadeInAdd(){
-      fadeInAlert();  
+      fadeInAlert();
     }
     function fadeInAlert(text){
-      $(".alert").text(text).addClass("loadAnimate");  
+      $(".alert").text(text).addClass("loadAnimate");
     }
     CKEDITOR.replace('keterangan', {
     enterMode: Number(2),

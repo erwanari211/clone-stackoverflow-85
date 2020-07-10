@@ -110,4 +110,20 @@ class Question extends Model
         }
         return $userVote;
     }
+
+    public function getTagButtonAttribute()
+    {
+        $result = '';
+
+        if ($this->tag) {
+            $tagArray = explode(',', $this->tag);
+            foreach ($tagArray as $tag) {
+                if ($tag) {
+                    $result .= '<button class="btn btn-sm btn-outline-secondary">' . $tag . '</button> ';
+                }
+            }
+        }
+
+        return $result;
+    }
 }

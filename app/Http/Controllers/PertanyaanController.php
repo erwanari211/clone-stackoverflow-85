@@ -41,12 +41,14 @@ class PertanyaanController extends Controller
         request()->validate([
             'title' => 'required',
             'content' => 'required',
+            'tag' => 'nullable',
         ]);
 
         $thread = new Question;
         $thread->user_id = auth()->user()->id;
         $thread->title = request('title');
         $thread->content = request('content');
+        $thread->tag = request('tag');
         $thread->save();
 
         session()->flash('success', 'Pertanyaan telah tersimpan');
@@ -97,10 +99,12 @@ class PertanyaanController extends Controller
         request()->validate([
             'title' => 'required',
             'content' => 'required',
+            'tag' => 'nullable',
         ]);
 
         $question->title = request('title');
         $question->content = request('content');
+        $question->tag = request('tag');
         $question->save();
 
         session()->flash('success', 'Pertanyaan telah diperbarui');
