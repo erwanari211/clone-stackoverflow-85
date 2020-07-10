@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'List Pertanyaan')
+
 @push('css')
   <style>
     .vote-container {
@@ -131,7 +133,7 @@
                       {{ $question->title }}
                     </a>
                   </h3>
-                  <div class="question-content">
+                  <div class="question-content mb-3">
                     {!! $question->content !!}
                   </div>
                   <div class="question-tag mb-3">
@@ -139,14 +141,15 @@
                   </div>
 
                   <div class="row">
-                    <div class="col-sm-4">
-                      <span class="text-muted">
+                    <div class="col-sm-6">
+                      <span class="text-muted mr-3">
                         {{ $question->answers_count ?? 0 }}
                         Jawaban
                       </span>
+                      {!! $question->is_answered_label !!}
                     </div>
-                    <div class="col-sm-4"></div>
-                    <div class="col-sm-4"></div>
+                    <div class="col-sm-6">
+                    </div>
                   </div>
 
                   @if ($isLoggedIn && $question->user_id == $userId)

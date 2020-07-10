@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Buat Pertanyaan')
+
 @section('content')
 <script type="text/javascript" src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', $question->title)
+
 @push('css')
   <style>
     .vote-container {
@@ -136,7 +138,7 @@
                   {{ $question->title }}
                 </a>
               </h3>
-              <div class="question-content">
+              <div class="question-content mb-3">
                 {!! $question->content !!}
               </div>
               <div class="question-tag mb-3">
@@ -170,19 +172,6 @@
                 </div>
               @endif
 
-              @if ($isLoggedIn)
-                <div class="mt-4">
-                  <hr>
-                  <form action="{{ route('pertanyaan.komentar.store', $question->id) }}" method="POST">
-                    @csrf
-                    <div class="form-group">
-                      <textarea class="form-control" name="content" placeholder="Tambahkan komentar"></textarea>
-                    </div>
-                    <button class="btn btn-primary btn-sm">Submit</button>
-                  </form>
-                </div>
-              @endif
-
               <div class="mt-4 question-comments">
                 @if (count($question->comments))
                   <hr>
@@ -204,6 +193,18 @@
                   @endforeach
                 @endif
               </div>
+
+              @if ($isLoggedIn)
+                <div class="mt-4">
+                  <form action="{{ route('pertanyaan.komentar.store', $question->id) }}" method="POST">
+                    @csrf
+                    <div class="form-group">
+                      <textarea class="form-control" name="content" placeholder="Tambahkan komentar"></textarea>
+                    </div>
+                    <button class="btn btn-primary btn-sm">Submit</button>
+                  </form>
+                </div>
+              @endif
             </div>
           </div>
 
@@ -326,19 +327,6 @@
                     {!! $answer->content !!}
                   </div>
 
-                  @if ($isLoggedIn)
-                    <div class="mt-4">
-                      <hr>
-                      <form action="{{ route('jawaban.komentar.store', $answer->id) }}" method="POST">
-                        @csrf
-                        <div class="form-group">
-                          <textarea class="form-control" name="content" placeholder="Tambahkan komentar"></textarea>
-                        </div>
-                        <button class="btn btn-primary btn-sm">Submit</button>
-                      </form>
-                    </div>
-                  @endif
-
                   <div class="mt-4 question-comments">
                     @if (count($answer->comments))
                       <hr>
@@ -360,6 +348,18 @@
                       @endforeach
                     @endif
                   </div>
+
+                  @if ($isLoggedIn)
+                    <div class="mt-4">
+                      <form action="{{ route('jawaban.komentar.store', $answer->id) }}" method="POST">
+                        @csrf
+                        <div class="form-group">
+                          <textarea class="form-control" name="content" placeholder="Tambahkan komentar"></textarea>
+                        </div>
+                        <button class="btn btn-primary btn-sm">Submit</button>
+                      </form>
+                    </div>
+                  @endif
                 </div>
               </div>
 

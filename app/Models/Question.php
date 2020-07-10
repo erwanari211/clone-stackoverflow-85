@@ -146,4 +146,15 @@ class Question extends Model
 
         return $result;
     }
+
+    public function getIsAnsweredLabelAttribute()
+    {
+        $output = '';
+
+        if ($this->best_answer_id) {
+            $output = '<span class="text-success">Sudah terjawab</span>';
+        }
+
+        return $output;
+    }
 }
