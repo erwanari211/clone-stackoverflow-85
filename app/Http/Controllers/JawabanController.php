@@ -111,8 +111,15 @@ class JawabanController extends Controller
     public function downvote($answerId)
     {
         $answer = Answer::findOrFail($answerId);
-        $answer->downvote();
 
+        $user = auth()->user();
+        $isAllowedToDownvote = $user->isAllowedToDownvote();
+        if (!$isAllowedToDownvote) {
+            Alert::toast('Maaf anda tidak bisa melakukan downvote', 'error');
+            return redirect()->back();
+        }
+
+        $answer->downvote();
         return redirect()->back();
     }
 }

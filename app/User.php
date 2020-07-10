@@ -60,6 +60,11 @@ class User extends Authenticatable
         }
     }
 
+    public function isAllowedToDownvote()
+    {
+        return $this->reputation_point > 15;
+    }
+
     public function getReputationLabelAttribute()
     {
         $reputation = $this->reputation_point;
