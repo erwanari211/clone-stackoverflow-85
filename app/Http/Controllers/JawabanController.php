@@ -52,7 +52,7 @@ class JawabanController extends Controller
         $answer->save();
 
         session()->flash('success', 'Jawaban telah tersimpan');
-        return redirect('/pertanyaan');
+        return redirect()->back();
     }
 
     /**

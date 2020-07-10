@@ -36,6 +36,11 @@
         font-size: 16px;
       }
     }
+
+    .question-content img,
+    .answer-content img {
+      width: 100%!important;
+    }
   </style>
 @endpush
 
@@ -62,7 +67,7 @@
 
       <div class="card mb-4">
         <div class="card-body">
-          <div class="media mb-2">
+          <div class="media mb-2 question">
             <div class="mr-3 vote-container">
               @if (auth()->check())
                 <a class="upvote {{ $question->user_vote == 'UPVOTE' ? 'active' : '' }}"
@@ -115,14 +120,14 @@
                 </div>
               </div>
 
-              <h3>
+              <h3 class="question-title">
                 <a href="{{ route('pertanyaan.show', $question->id) }}">
                   {{ $question->title }}
                 </a>
               </h3>
-              <p>
+              <div class="question-content">
                 {!! $question->content !!}
-              </p>
+              </div>
 
               <div class="row">
                 <div class="col-sm-4">
@@ -187,7 +192,7 @@
           @endphp
           <div class="card mb-4">
             <div class="card-body">
-              <div class="media mb-2">
+              <div class="media mb-2 answer">
                 <div class="mr-3 vote-container">
                   @if (auth()->check())
                     <a class="upvote {{ $answer->user_vote == 'UPVOTE' ? 'active' : '' }}"
@@ -240,9 +245,9 @@
                     </div>
                   </div>
 
-                  <p>
+                  <div class="answer-content">
                     {!! $answer->content !!}
-                  </p>
+                  </div>
                 </div>
               </div>
 
