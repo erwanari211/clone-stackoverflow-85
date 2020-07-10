@@ -35,15 +35,19 @@ class Answer extends Model
             if ($vote) {
                 if ($vote->vote_type == 1) {
                     $this->unvote();
+                    $this->user->updateUserReputation('cancel upvote');
                 }
                 if ($vote->vote_type == 0) {
                     $vote->upvote();
+                    $this->user->updateUserReputation('cancel downvote');
+                    $this->user->updateUserReputation('upvote');
                 }
             } else {
                 $this->votes()->create([
                     'user_id' => $user->id,
                     'vote_type' => 1,
                 ]);
+                $this->user->updateUserReputation('upvote');
             }
             $this->countVote();
         }
@@ -57,15 +61,19 @@ class Answer extends Model
             if ($vote) {
                 if ($vote->vote_type == 0) {
                     $this->unvote();
+                    $this->user->updateUserReputation('cancel downvote');
                 }
                 if ($vote->vote_type == 1) {
                     $vote->downvote();
+                    $this->user->updateUserReputation('cancel upvote');
+                    $this->user->updateUserReputation('downvote');
                 }
             } else {
                 $this->votes()->create([
                     'user_id' => $user->id,
                     'vote_type' => 0,
                 ]);
+                $this->user->updateUserReputation('downvote');
             }
             $this->countVote();
         }

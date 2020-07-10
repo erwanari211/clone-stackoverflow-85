@@ -37,6 +37,29 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function updateUserReputation($type = null)
+    {
+        if (strtolower($type) == 'upvote') {
+            $point = 10;
+            $this->increment('reputation_point', $point);
+        }
+
+        if (strtolower($type) == 'downvote') {
+            $point = -1;
+            $this->increment('reputation_point', $point);
+        }
+
+        if (strtolower($type) == 'cancel upvote') {
+            $point = -10;
+            $this->increment('reputation_point', $point);
+        }
+
+        if (strtolower($type) == 'cancel downvote') {
+            $point = 1;
+            $this->increment('reputation_point', $point);
+        }
+    }
+
     public function getReputationLabelAttribute()
     {
         $reputation = $this->reputation_point;
